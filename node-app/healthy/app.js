@@ -1,7 +1,9 @@
 const http = require('http');
 const os = require('os');
 
-console.log("kubia server starting...");
+console.log("Kubia server starting... (Healthy)");
+
+var requestCount = 0;
 
 var handler = function(request, response) {
     var ip = request.headers['x-forwarded-for'] || 
@@ -9,9 +11,11 @@ var handler = function(request, response) {
              request.socket.remoteAddress ||
              (request.connection.socket ? request.connection.socket.remoteAddress : null);
 
-    console.log("Receive request from " + ip);
+    requestCount++;
+    console.log("Receive request " + requestCount + " from " + ip);
     response.writeHead(200);
-    response.end("You've hit Hostname:" + os.hostname() + ", IP:" + ip + "\n");
+    response.end("You've hit Hostname:" + os.hostname() + ", IP:" + ip + " [" + requestCount + "] " + "\n");
+    console.log("Result: HTTP 200");
 };
 
 var www = http.createServer(handler);
