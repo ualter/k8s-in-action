@@ -4,6 +4,13 @@
 # Docker
 docker build -t kubia .
 docker run --name kubia-container -p 9191:9191 -d kubia
+docker tag kubia ualter/kubia
+docker push ualter/kubia
+
+# Check (in case docker push failed)
+docker-machine ssh
+sudo vi /etc/resolv.conf --> it should be:
+namespace 8.8.8.8
 
 # Alias
 alias k=kubectl $1 $2 $3 $4 $5 $6 $7
@@ -58,6 +65,19 @@ kubectl scale rc kubia --replicas=3
 
 # Port Forwarding to expose access to a specific POD (testing purporses)
 kubectl port-forward kubia-2lvnn 8888:9191  (curl localhost:8888)
+
+# Explain content/metadata resource/object of K8s
+kubectl explain deploy
+kubectl explain deploy.spec.template
+kubectl explain deploy.spec.template.spec.containers.livenessProbe
+kubectl explain pod
+kubectl explain pod.spec
+
+# Get events
+kubectl get events
+kubectl get events --sort-by=.metadata.creationTimestamp
+# Events of a specific object, a Pod (its name)
+kubectl get events --namespace default --field-selector involvedObject.name=kubia-unhealthy-v1-948865fb6-qxq5m
 
 ## Kubectl Change Context (Minikube <--> Google Cloud) Where my Kubectl is pointing to?
 ## Check Contexts (K8s envionments to interact with the K8 API Server)
