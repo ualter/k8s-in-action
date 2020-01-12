@@ -52,6 +52,9 @@ gcloud container clusters create kubia --num-nodes 3 --machine-type f1-micro
 ## Kubernetes
 ### Kubectl 
 ```bash
+# Configuring Kubectl Editor (change the default)
+export KUBE_EDITOR=/user/bin/nano
+
 # Install your App at the K8s Cluster
 kubectl run kubia --image=ualter/kubia --port=9191 --generator=run/v1
 # or
@@ -62,6 +65,9 @@ kubectl expose rc kubia --type=LoadBalancer --name kubia-http
 
 # Scale ReplicationController
 kubectl scale rc kubia --replicas=3
+
+# Delete ReplicationController without delete its created Pods (let's them running)
+kubectl delete rc kubia-healthy --cascade=false
 
 # Port Forwarding to expose access to a specific POD (testing purporses)
 kubectl port-forward kubia-2lvnn 8888:9191  (curl localhost:8888)
@@ -78,6 +84,12 @@ kubectl get events
 kubectl get events --sort-by=.metadata.creationTimestamp
 # Events of a specific object, a Pod (its name)
 kubectl get events --namespace default --field-selector involvedObject.name=kubia-unhealthy-v1-948865fb6-qxq5m
+
+# Delete filtering by Label
+kubectl delete po -l app=kubia-unhealthy
+
+# Listing Pods showing a Label's app column
+ kubectl get po -L app
 
 ## Kubectl Change Context (Minikube <--> Google Cloud) Where my Kubectl is pointing to?
 ## Check Contexts (K8s envionments to interact with the K8 API Server)

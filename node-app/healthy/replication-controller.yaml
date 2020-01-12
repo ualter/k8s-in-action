@@ -1,0 +1,20 @@
+## Deprecated!!
+## Should be replaced by the ReplicatSet (use this one instead of ReplicationControllers)
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kubia-healthy
+spec:
+  replicas: 3
+  selector:
+    app: kubia-healthy
+  template:
+    metadata:
+      labels:
+        app: kubia-healthy
+    spec:
+      containers:
+      - name: kubia
+        image: ualter/kubia:v1-healthy
+        ports:
+        - containerPort: 9191
