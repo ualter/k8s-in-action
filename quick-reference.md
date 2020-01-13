@@ -45,6 +45,10 @@ gcloud container clusters create kubia --num-nodes 3 --machine-type f1-micro
 ## Kubernetes
 ### Kubectl 
 ```bash
+
+# Create an Entry at the Kubeconfig for the GCloud K8's Cluster
+gcloud container clusters get-credentials kubia
+
 # Install your App at the K8s Cluster
 kubectl run kubia --image=ualter/kubia --port=9191 --generator=run/v1
 # or
