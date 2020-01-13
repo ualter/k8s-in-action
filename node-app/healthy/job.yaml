@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+    name: batch-job
+spec:
+  # Completions: 4 makes this JOb run five pods sequentially
+  completions: 4
+  # Up to two pods can run in parallel
+  parallelism: 2
+  template:
+    metadata:
+      labels:
+        app: batch-job
+    spec:
+      # Must be OnFailure, the Pod only restart if fails
+      restartPolicy: OnFailure
+      containers:
+      - name: main
+        image: luksa/batch-job

@@ -91,6 +91,13 @@ kubectl delete po -l app=kubia-unhealthy
 # Listing Pods showing a Label's app column
  kubectl get po -L app
 
+# Add Label to a Node of the K8's Cluster
+kubeclt label node gke-kubia-default-pool-aa0814b9-kb75 disk=ssd --overwrite
+# List all Nodes of the K8's Cluster
+kubectl get nodes
+# List all Nodes of the K8's Cluster (show column with label disk)
+kubectl get nodes -L disk
+
 ## Kubectl Change Context (Minikube <--> Google Cloud) Where my Kubectl is pointing to?
 ## Check Contexts (K8s envionments to interact with the K8 API Server)
 # List
