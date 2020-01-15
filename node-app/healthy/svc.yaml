@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: kubia
 spec:
+  #All request sent to the same Pod por a certain client
+  #sessionAffinity: ClientIP
   ports:
   - port: 80
     targetPort: 9191
