@@ -104,6 +104,10 @@ kubectl get nodes -L disk
 kubectl config get-contexts
 # Change
 kubectl config use-context CONTEXT_NAME
+
+# Execute a Service by its ClusterIP (not externally seen)
+kubectl exec <PODS-NAME> -- curl -s <SERVICE-CLUSTER-IP>
+kubectl exec kubia-manual -- curl -s 10.78.15.153
 ```
 ### Dashboard UI
 ```bash

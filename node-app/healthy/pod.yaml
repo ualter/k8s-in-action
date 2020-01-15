@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual-3
+  labels:
+    app: kubia
+spec:
+  containers:
+  - image: ualter/kubia:v1-healthy
+    name: kubia
+    ports:
+    - containerPort: 9191
+      protocol: TCP
