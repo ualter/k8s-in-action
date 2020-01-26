@@ -2,12 +2,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: kubia
+  name: kubia-service
 spec:
   #All request sent to the same Pod por a certain client
   #sessionAffinity: ClientIP
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 9191
   selector:
-    app: kubia
+    app: kubia-healthy

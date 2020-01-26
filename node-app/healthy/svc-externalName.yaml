@@ -1,0 +1,14 @@
+# Sample to Service type ExternalName
+# Here A curl to http://external-service will redirect ou to the DNS level to http://api.somecompany.com
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service
+spec:
+  type: ExternalName
+  externalName: api.somecompany.com
+  ports:
+  - port: 80
+    targetPort: 9191
+  selector:
+    app: kubia-healthy

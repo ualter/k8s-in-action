@@ -108,6 +108,11 @@ kubectl config use-context CONTEXT_NAME
 # Execute a Service by its ClusterIP (not externally seen)
 kubectl exec <PODS-NAME> -- curl -s <SERVICE-CLUSTER-IP>
 kubectl exec kubia-manual -- curl -s 10.78.15.153
+
+# Using JSONPath to list the External IPs of the Node's Cluster
+## This works OK on GitBash, on Cmder must put inside a ShellScript file and call it with sh file.sh
+kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
+
 ```
 ### Dashboard UI
 ```bash
