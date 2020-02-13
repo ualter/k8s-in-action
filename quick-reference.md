@@ -131,6 +131,30 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 
 ```
 
+### NGINX Ingress Controller
+```bash
+# In order to work the Ingress for Services (expose them out of cluster), 
+# we need to choose and install a specific Ingress Controller before
+# Here we install the NGINX Ingress Controler
 
+# Install The Ingress Controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.28.0/deploy/static/mandatory.yaml
+
+# Check installation
+kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx --watch
+
+# Enable it
+minikube addons enable ingress
+
+# Now, create the Ingress
+k apply -f ingress-nginx-svc-kubia.yaml
+
+# Verify the IP for the exposed Service 
+k get ing
+------------------------------------------------------
+NAME            HOSTS   ADDRESS          PORTS   AGE
+kubia-ingress   *       192.168.99.107   80      3m12s
+
+```
 
 
