@@ -155,6 +155,18 @@ k get ing
 NAME            HOSTS   ADDRESS          PORTS   AGE
 kubia-ingress   *       192.168.99.107   80      3m12s
 
+
 ```
 
+### OpenSSL (Ingress SSL Termination - Certificates)
+```bash
+# Private Key
+openssl genrsa -out tls.key 2048
 
+# Certificate
+openssl req -new -x509 -key tls.key -out tls.cert -days 360 -subj /CN=kubia.example.com
+
+# Secret at K8's
+kubectl create secret tls tls-secret --cert=tls.cert --key=tls.key 
+
+```
