@@ -1,15 +1,15 @@
 kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
-  name: kubia
+  name: kubia-healthy
   namespace: default
   labels:
-    app: kubia
+    app: kubia-healthy
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: kubia
+      app: kubia-healthy
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,11 +17,11 @@ spec:
   template:
     metadata:
       labels:
-        app: kubia
+        app: kubia-healthy
     spec:
       containers:
       - image: ualter/kubia:v1-healthy
-        name: kubia
+        name: kubia-healthy
         resources:
           requests:
             memory: "64Mi"
